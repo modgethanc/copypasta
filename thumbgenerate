@@ -1,0 +1,77 @@
+#!/usr/bin/perl -w
+use strict;
+use Switch;
+
+my $footer   = "<p>vincent zeng (hvincent at <a href=\"http://modgethanc.com\">modgethancdotcom</a>)</p>\n";
+my $titletag = " --- vincent zeng";
+
+print "directory: ";
+chomp (my $loc = <>);
+
+my $info = "$loc/info.txt";
+my $outfile = "$loc/index.html";
+
+my @pics = glob("$loc/*.jpg");
+push(@pics,glob("$loc/*.JPG"));
+
+open IN, $info;
+my @info = <IN>;
+
+my ($title, $date, $about, $bg, $font);
+
+$bg   = "#000000";
+$font = "#ffffff";
+
+foreach (@info) {
+	switch ($_){
+		case /^title/ {
+			my @t = split /:/, $_;
+			chomp($title = $t[1]);
+			$title .= $titletag;
+		}
+		case /^date/ {
+			my @d = split /:/, $_;
+			chomp($date = $d[1]);
+		}
+		case /^about/ {
+			my @a = split /:/, $_;
+			chomp($about = $a[1]);
+		}
+		case /^color/ {
+			my @c = split /:/, $_;
+			if ($c[1] == 0) {
+				$bg = "#000000";
+				$font = "#ffffff";
+			} else {
+				$bg = "#ffffff";
+				$font = "#000000";
+			}
+		}
+	}
+}
+
+open OUT, ">", $outfile;
+select OUT;
+print "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n";
+print "<html>\n";
+print "<head>\n";
+print "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" >";
+print "<title>$title</title>\n";
+print "</head>\n";
+print "<body bgcolor=\"$bg\" vlink=\"#c0c0c0\" link=\"#c0c0c0\" text=\"$font\">\n";
+print "<center>\n";
+print "<p><b>$date</b></p>\n";
+print "<p>$about</p>\n";
+print "<p>";
+
+foreach (@pics) {
+	my @picname = split /\/+/, $_;
+	my $pic = pop(@picname);
+	print "<a href=\"$pic\"><img src=\"thumb/$pic\" border=\"1\" alt=\"$pic\"></a>\n";
+}
+
+print "</p>\n";
+print $footer;
+print "</center></body></html>";
+
+close OUT;
