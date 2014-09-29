@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Switch;
+use feature qw(switeh);
 
 my $footer   = "<p>vincent zeng (hvincent at <a href=\"http://modgethanc.com\">modgethancdotcom</a>)</p>\n";
 my $titletag = " --- vincent zeng";
@@ -23,21 +23,21 @@ $bg   = "#000000";
 $font = "#ffffff";
 
 foreach (@info) {
-	switch ($_){
-		case /^title/ {
+	given ($_){
+		when (/^title/) {
 			my @t = split /:/, $_;
 			chomp($title = $t[1]);
 			$title .= $titletag;
 		}
-		case /^date/ {
+		when (/^date/) {
 			my @d = split /:/, $_;
 			chomp($date = $d[1]);
 		}
-		case /^about/ {
+		when (/^about/) {
 			my @a = split /:/, $_;
 			chomp($about = $a[1]);
 		}
-		case /^color/ {
+		when (/^color/) {
 			my @c = split /:/, $_;
 			if ($c[1] == 0) {
 				$bg = "#000000";
