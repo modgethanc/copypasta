@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# resize shorthand
+
+convert -resize 1000 $1 lr-$1

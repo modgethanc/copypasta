@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# assume $BODYLOG is set to something useful
+
+TIMESTAMP="$(date +"%Y")-$(date +"%m")-$(date +"%d") ($(date +"%a"))"
+
+if [ $1 == "-a" ]; then
+  echo "    $2" >> $BODYLOG
+else
+  echo "
+$TIMESTAMP" >> $BODYLOG
+  echo "    $1" >> $BODYLOG
+fi
