@@ -1,0 +1,24 @@
+#!/usr/bin/perl -w
+use strict;
+
+my $outfile = "dickcheney.html";
+my @files = glob("*");
+
+open OUT, ">", $outfile;
+select OUT;
+print "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n";
+print "<html>\n";
+print "<head>\n";
+print "<title>dir</title>\n";
+print "<body bgcolor=white vlink=#575757 link=#575757 text=black>\n";
+print "<b><p>a directory listing.</b></p>\n";
+print "<ul>\n";
+foreach (@files) {
+	print "<li><a href=\"$_\">$_</a></li>\n";
+}
+
+print "</ul>\n";
+print "<p><a href=\"..\">up one level</a></p>\n";
+print "</center></body></html>";
+
+close OUT;
