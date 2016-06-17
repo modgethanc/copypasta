@@ -4,6 +4,7 @@ use strict;
 
 my $loc;
 my $thumbnail;
+my $filenames;
 my $hardlink = "";
 
 #print "directory: ";
@@ -20,6 +21,10 @@ if ($ARGV[0] =~ /^-/) {
         } else {
             $hardlink = ""
         }
+    }
+
+    if ('f' ~~ @args){
+        $filenames = 1;
     }
     $loc = $ARGV[1];
 } else {
@@ -85,10 +90,16 @@ print "<html>\n";
 print "<head>\n";
 #print "<title>$title</title>\n";
 #print "<body bgcolor=$bg vlink=#c0c0c0 link=#c0c0c0 text=$font>\n";
+print "<style type=\"text/css\">";
+print "img { \nborder: 1px solid #FFFFFF; \npadding: 5px;}";
+print "</style>";
+print "</head>\n";
 print "<body bgcolor=black vlink=#c0c0c0 link=#c0c0c0 text=white>\n";
 print "<center>\n";
 #print "<p><b>$date</b></p>\n";
 #print "<p>$about</p>\n";
+
+print "<p>";
 
 foreach (@pics) {
 	my @picname = split /\/+/, $_;
@@ -96,13 +107,21 @@ foreach (@pics) {
   #print "<p><a href=\"$pic\"><img src=\"$pic\" width=$size border=1></a></p>\n";
   
   if ($thumbnail) {
-	  print "<a href=\"$hardlink$pic\"><img src=\"$hardlink"."thumb/$pic\" border=1></a>\n";
+	  print "<a href=\"$hardlink$pic\"><img src=\"$hardlink"."thumb/$pic\" border=1 padding=1 title=\"$pic\"></a> \n";
   } else {
-	  print "<p><a href=\"$hardlink$pic\"><img src=\"$hardlink$pic\" width=600 border=1></a></p>\n";
+	  print "<a href=\"$hardlink$pic\"><img src=\"$hardlink$pic\" width=600 title=\"$pic\"></a>\n";
+    #print "<a href=\"$hardlink$pic\"><img src=\"$hardlink$pic\" width=600 border=1 padding=1 title=\"$pic\"></a>\n";
+    if ($filenames) {
+      print "<br \>$pic";
+    }
+    print "</p>\n<p>";
   }
+
+  
 }
 
+print "</p>\n";
 print "<p>vincent zeng (hvincent at <a href=\"http://modgethanc.com\">modgethancdotcom</a>)</p>\n";
-print "</center></body></html>";
+print "</center></body></html>\n";
 
 close OUT;

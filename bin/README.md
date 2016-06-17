@@ -14,8 +14,10 @@ image processing i do. mostly, they're rsi-deterrents.
     makes an html gallery of pictures, printed to index.html of the given
     directory.
     flags:
-        * -t, 'thumbnails', makes a thumbnailed gallery
-        * -h, 'hardlinks', uses $WWW to make hardlinked urls
+        * -t, *thumbnails*: makes a thumbnailed gallery
+        * -h, *hardlinks*: uses $WWW to make hardlinked urls
+        * -f, *filenames*: prints filename under each picture (only for
+          non-thumnailing)
 
 **shrinkydink**
     shrinks given file to 1000px wide and saves as lr-*filename*
