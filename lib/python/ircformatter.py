@@ -64,6 +64,9 @@ def parse_dict(message):
     A more complete message parser that returns a dict, and
     conditionally formats based on whether or not each piece of
     information can be extracted from the message.
+
+    Dict items: floatnow (float timestamp), time (int timestamp), username,
+    nick, command, channel, message)
     '''
 
     parsed = {}
